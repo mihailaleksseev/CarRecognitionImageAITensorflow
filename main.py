@@ -24,9 +24,9 @@ detector = ObjectDetection()
     - приемлимо находит авто, было обнаружено на всех фото, но контур не всегда корректны
     - запуск осуществлялся на macbook pro 2017 i7, 16gb, Radeon Pro 555X 4gb
 """
-detector.setModelTypeAsYOLOv3()
-detector.setModelPath("yolo.h5")
-folder = 'done_yolo/'
+# detector.setModelTypeAsYOLOv3()
+# detector.setModelPath("yolo.h5")
+# folder = 'done_yolo/'
 
 
 """ yolo.h5
@@ -35,9 +35,9 @@ folder = 'done_yolo/'
     - очень плохо находит авто, на 2х из 7 фото авто обнаружено не было
     - запуск осуществлялся на macbook pro 2017 i7, 16gb, Radeon Pro 555X 4gb
 """
-# detector.setModelTypeAsTinyYOLOv3()
-# detector.setModelPath("yolo-tiny.h5")
-# folder = 'done_yolotiny/'
+detector.setModelTypeAsTinyYOLOv3()
+detector.setModelPath("yolo-tiny.h5")
+folder = 'done_yolotiny/'
 
 detector.loadModel()
 
@@ -52,6 +52,11 @@ for file in file_names:
     detections = detector.detectObjectsFromImage(input_image="images/" + file,
                                                  output_image_path="images/" + folder + file,
                                                  minimum_percentage_probability=30)
+
+    for eachObject in detections:
+        print(eachObject["name"] , " : ", eachObject["percentage_probability"], " : ", eachObject["box_points"] )
+        print("--------------------------------")
+
     print('[END FILE' + file + ' READ ] ' + time.strftime("%d:%m:%Y-%H:%M:%S"))
 
 # process video
